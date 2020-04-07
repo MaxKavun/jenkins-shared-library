@@ -1,8 +1,9 @@
 #!/usr/bin/env groovy
 
 def createNewReleaseBranch() {
-    sh 'ls -al'
-    sh 'git branch'
+    sh "git branch release/${BUILD_NUMBER}"
+    sh "git checkout release/${BUILD_NUMBER}"
+    sh "git push origin release/${BUILD_NUMBER}"
 }
 
 def call() {
