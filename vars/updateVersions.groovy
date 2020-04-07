@@ -1,5 +1,10 @@
 #!/usr/bin/env groovy
 
+@NonCPS
+def writeChangesToFile(content) {
+    writeFile file: "Jenkinsfile", text: content
+}
+
 def addBuildDiscardOption() {
     def optionsDirective = 
     '''options {
@@ -11,7 +16,7 @@ def addBuildDiscardOption() {
     if (!matcher) {
         def newJenkinsFile = jenkinsFile.replace('stages',optionsDirective)
         print newJenkinsFile
-        //writeFile file: "Jenkinsfile", text: newJenkinsFile
+        writeChangesToFile(newJenkinsFile)
     }
     print matcher.size()
 }
