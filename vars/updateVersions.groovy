@@ -5,8 +5,7 @@ def addBuildDiscardOption() {
         options {
             buildDiscarder(logRotator(numToKeepStr: '5'))
         }
-        stages
-    '''
+        stages'''
     def jenkinsFile = readFile "Jenkinsfile"
     def matcher = jenkinsFile =~ /options.*[\\{]([^}]*)[\\}]/
     if (!matcher) {
