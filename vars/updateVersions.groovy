@@ -23,9 +23,13 @@ def addBuildDiscardOption(jenkinsFile) {
 def createNewReleaseBranch() {
     def jenkinsFile = readFile "Jenkinsfile"
     def newJenkinsFile = addBuildDiscardOption(jenkinsFile)
-    writeChangesToFile(newJenkinsFile)
     sh "git branch release/${BUILD_NUMBER}"
     sh "git checkout release/${BUILD_NUMBER}"
+    if(newJenkinsFile){
+        writeChangesToFile(newJenkinsFile)
+        sh 'git add .'
+        sh "git commit -m 'Add option directive'"
+    }
     sshagent (['22aebe55-e3cf-48af-b4cc-0ca480a4fc77']) {
         sh "git push origin release/${BUILD_NUMBER}"
     }
