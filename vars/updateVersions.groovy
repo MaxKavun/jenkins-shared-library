@@ -1,6 +1,5 @@
 #!/usr/bin/env groovy
 
-@NonCPS
 def addBuildDiscardOption() {
     def optionsDirective = '''
         options {
@@ -12,7 +11,8 @@ def addBuildDiscardOption() {
     def matcher = jenkinsFile =~ /options.*[\\{]([^}]*)[\\}]/
     if (!matcher) {
         def newJenkinsFile = jenkinsFile.replace('stages',optionsDirective)
-        writeFile file: "Jenkinsfile", text: newJenkinsFile
+        print newJenkinsFile
+        //writeFile file: "Jenkinsfile", text: newJenkinsFile
     }
     print matcher.size()
 }
