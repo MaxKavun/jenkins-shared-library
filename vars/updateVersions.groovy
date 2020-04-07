@@ -12,14 +12,18 @@ def addBuildDiscardOption(jenkinsFile) {
         buildDiscarder(logRotator(numToKeepStr: '999'))
     }
     stages'''
-    def matcher = jenkinsFile =~ /options.*[\\{]([^}]*)[\\}]/
+    def pattern = /(options.*[\\{][^}]*)[(?<input>\\})]/
+    def matcher = jenkinsFile =~ pattern
     if (!matcher) {
         def newJenkinsFile = jenkinsFile.replace('stages',optionsDirective)
         return newJenkinsFile
     } else {
         matcher = jenkinsFile =~ /buildDiscarder\(logRotator.+/
         if (matcher){
-            def newJenkinsFile = jenkinsFile.replaceFirst(/buildDiscarder\(logRotator.+/) { match -> "buildDiscarder(logRotator(numToKeepStr: '999'))" }
+            def newJenkinsFile = jenkinsFile.replaceFirst(/buildDiscarder\(logRotator.+/) { buildDiscarderOption }
+            return newJenkinsFile
+        } else {
+            def newJenkinsFile = jenkinsFile.replaceFirst(pattern) { "$1" + buildDiscarderOption + "$2" }
             return newJenkinsFile
         }
     }
