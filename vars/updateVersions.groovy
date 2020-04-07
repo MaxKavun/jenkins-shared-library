@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 
+@NonCPS
 def addBuildDiscardOption() {
     def optionsDirective = '''
         options {
