@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 
 def addBuildDiscardOption() {
-    def optionsDirective = '''
-        options {
-            buildDiscarder(logRotator(numToKeepStr: '5'))
-        }
-        stages'''
+    def optionsDirective = 
+    '''options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    stages'''
     def jenkinsFile = readFile "Jenkinsfile"
     def matcher = jenkinsFile =~ /options.*[\\{]([^}]*)[\\}]/
     if (!matcher) {
