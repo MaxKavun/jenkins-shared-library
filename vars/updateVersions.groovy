@@ -8,7 +8,6 @@ def addBuildDiscardOption() {
     '''
     def jenkinsFile = readFile "Jenkinsfile"
     def matcher = jenkinsFile =~ /options.*[\\{]([^}]*)[\\}]/
-    assert matcher.find()
     print matcher.size()
 }
 
