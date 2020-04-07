@@ -10,7 +10,8 @@ def addBuildDiscardOption() {
     def jenkinsFile = readFile "Jenkinsfile"
     def matcher = jenkinsFile =~ /options.*[\\{]([^}]*)[\\}]/
     if (!matcher) {
-        jenkinsFile.replace('stages',optionsDirective)
+        def newJenkinsFile = jenkinsFile.replace('stages',optionsDirective)
+        writeFile file: "Jenkinsfile", text: newJenkinsFile
     }
     print matcher.size()
 }
