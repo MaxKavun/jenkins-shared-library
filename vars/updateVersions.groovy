@@ -1,6 +1,5 @@
 #!/usr/bin/env groovy
 
-@NonCPS
 def writeChangesToFile(content) {
     writeFile file: "Jenkinsfile", text: content
 }
