@@ -5,13 +5,12 @@ def writeChangesToFile(content) {
 }
 
 @NonCPS
-def addBuildDiscardOption() {
+def addBuildDiscardOption(jenkinsFile) {
     def optionsDirective = 
     '''options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages'''
-    def jenkinsFile = readFile "Jenkinsfile"
     def matcher = jenkinsFile =~ /options.*[\\{]([^}]*)[\\}]/
     if (!matcher) {
         def newJenkinsFile = jenkinsFile.replace('stages',optionsDirective)
@@ -22,7 +21,8 @@ def addBuildDiscardOption() {
 }
 
 def createNewReleaseBranch() {
-    addBuildDiscardOption()
+    def jenkinsFile = readFile "Jenkinsfile"
+    addBuildDiscardOption(jenkinsFile)
     sh "git branch release/${BUILD_NUMBER}"
     sh "git checkout release/${BUILD_NUMBER}"
     sshagent (['22aebe55-e3cf-48af-b4cc-0ca480a4fc77']) {
