@@ -4,6 +4,7 @@ def writeChangesToFile(content) {
     writeFile file: "Jenkinsfile", text: content
 }
 
+@NonCPS
 def addBuildDiscardOption() {
     def optionsDirective = 
     '''options {
