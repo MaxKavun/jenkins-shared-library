@@ -12,7 +12,7 @@ def addBuildDiscardOption(jenkinsFile) {
         buildDiscarder(logRotator(numToKeepStr: '999'))
     }
     stages'''
-    def pattern = /(options.*[\\{][^}]*)[(?<input>\\})]/
+    def pattern = /(options.*[\\{][^}]*)([?<input>\\}])/
     def matcher = jenkinsFile =~ pattern
     if (!matcher) {
         def newJenkinsFile = jenkinsFile.replace('stages',optionsDirective)
