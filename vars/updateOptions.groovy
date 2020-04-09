@@ -2,9 +2,8 @@
 
 def getNumLogsForRotation() {
     //def currentBranch = sh(script: "git branch --show-current", returnStdout: true).trim()
-    def currentBranch = sh(script: "git name-rev --name-only HEAD", returnStdout: true).trim()
-    print currentBranch
-    def matcher = currentBranch =~ /(release.+|hotfix.*)/
+    //def currentBranch = sh(script: "git name-rev --name-only HEAD", returnStdout: true).trim()
+    def matcher = env.BRANCH_NAME =~ /(release|hotfix)/
     def numLogsForRotation = matcher ? 999 : 10
     return numLogsForRotation 
 }
@@ -52,5 +51,6 @@ def createNewReleaseBranch() {
 }
 
 def call() {
-    createNewReleaseBranch()
+    //createNewReleaseBranch()
+    print getNumLogsForRotation()
 }
