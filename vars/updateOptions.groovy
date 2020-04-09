@@ -23,9 +23,9 @@ def addBuildDiscardOption(jenkinsFile) {
             def newJenkinsFile = jenkinsFile.replaceFirst(/buildDiscarder\(logRotator.+/) { buildDiscarderOption }
             return newJenkinsFile
         } else {
-            //def newJenkinsFile = jenkinsFile.replaceFirst(pattern) { '$1' + buildDiscarderOption + "$2" }
-            //return newJenkinsFile
-            echo "Add buildDiscard if directive exists without option"
+            def newJenkinsFile = jenkinsFile.replaceFirst(pattern) { '$1' + buildDiscarderOption + '$2' }
+            return newJenkinsFile
+            //echo "Add buildDiscard if directive exists without option"
         }
     }
     return null
