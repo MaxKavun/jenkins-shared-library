@@ -2,7 +2,7 @@
 
 def getNumLogsForRotation() {
     //def currentBranch = sh(script: "git branch --show-current", returnStdout: true).trim()
-    def currentBranch = sh(script: "git symbolic-ref HEAD", returnStdout: true).trim()
+    def currentBranch = sh(script: "git name-rev --name-only HEAD", returnStdout: true).trim()
     print currentBranch
     def matcher = currentBranch =~ /(release.+|hotfix.*)/
     def numLogsForRotation = matcher ? 999 : 10
@@ -37,10 +37,10 @@ def addBuildDiscardOption(jenkinsFile,numLogsForRotation) {
 
 def createNewReleaseBranch() {
     def jenkinsFile = readFile "Jenkinsfile"
-    def numLogsForRotation = getNumLogsForRotation()
-    def newJenkinsFile = addBuildDiscardOption(jenkinsFile,numLogsForRotation)
     sh "git branch release/${BUILD_NUMBER}"
     sh "git checkout release/${BUILD_NUMBER}"
+    def numLogsForRotation = getNumLogsForRotation()
+    def newJenkinsFile = addBuildDiscardOption(jenkinsFile,numLogsForRotation)
     if(newJenkinsFile){
         writeFile file: "Jenkinsfile", text: newJenkinsFile
         sh 'git add .'
