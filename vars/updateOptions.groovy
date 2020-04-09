@@ -1,7 +1,9 @@
 #!/usr/bin/env groovy
 
 def getNumLogsForRotation() {
-    def currentBranch = sh(script: "git branch --show-current", returnStdout: true).trim()
+    //def currentBranch = sh(script: "git branch --show-current", returnStdout: true).trim()
+    def currentBranch = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
+    print currentBranch
     def matcher = currentBranch =~ /(release.+|hotfix.*)/
     def numLogsForRotation = matcher ? 999 : 10
     return numLogsForRotation 
