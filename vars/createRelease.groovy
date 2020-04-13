@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-
+import com.max.jsl.*
 
 def call() {
     /*
