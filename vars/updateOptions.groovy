@@ -1,17 +1,21 @@
 #!/usr/bin/env groovy
 
-def writeChangesToFile(content) {
-    writeFile file: "Jenkinsfile", text: content
+def getNumLogsForRotation() {
+    //def currentBranch = sh(script: "git branch --show-current", returnStdout: true).trim()
+    //def currentBranch = sh(script: "git name-rev --name-only HEAD", returnStdout: true).trim()
+    def matcher = env.BRANCH_NAME =~ /(release|hotfix)/
+    def numLogsForRotation = matcher ? 999 : 10
+    return numLogsForRotation 
 }
 
 @NonCPS
-def addBuildDiscardOption(jenkinsFile) {
-    def buildDiscarderOption = "buildDiscarder(logRotator(numToKeepStr: '999'))"
+def addBuildDiscardOption(jenkinsFile,numLogsForRotation) {
+    def buildDiscarderOption = "buildDiscarder(logRotator(numToKeepStr: '${numLogsForRotation}'))"
     def optionsDirective = 
-    '''options {
-        buildDiscarder(logRotator(numToKeepStr: '999'))
+    """options {
+        buildDiscarder(logRotator(numToKeepStr: '${numLogsForRotation}'))
     }
-    stages'''
+    stages"""
     def pattern = /(options.*[\\{][^}]*)([?<input>\\}])/
     def matcher = jenkinsFile =~ pattern
     if (!matcher) {
@@ -23,9 +27,8 @@ def addBuildDiscardOption(jenkinsFile) {
             def newJenkinsFile = jenkinsFile.replaceFirst(/buildDiscarder\(logRotator.+/) { buildDiscarderOption }
             return newJenkinsFile
         } else {
-            def newJenkinsFile = jenkinsFile.replaceFirst(pattern) { match, firstPart, closeBracket-> firstPart + "\t" +buildDiscarderOption + "\n" + "\t" + closeBracket}
+            def newJenkinsFile = jenkinsFile.replaceFirst(pattern) { match, firstPart, closeBracket-> "${firstPart}\t${buildDiscarderOption}\n\t${closeBracket}"}
             return newJenkinsFile
-            //echo "Add buildDiscard if directive exists without option"
         }
     }
     return null
@@ -33,11 +36,12 @@ def addBuildDiscardOption(jenkinsFile) {
 
 def createNewReleaseBranch() {
     def jenkinsFile = readFile "Jenkinsfile"
-    def newJenkinsFile = addBuildDiscardOption(jenkinsFile)
     sh "git branch release/${BUILD_NUMBER}"
     sh "git checkout release/${BUILD_NUMBER}"
+    def numLogsForRotation = getNumLogsForRotation()
+    def newJenkinsFile = addBuildDiscardOption(jenkinsFile,numLogsForRotation)
     if(newJenkinsFile){
-        writeChangesToFile(newJenkinsFile)
+        writeFile file: "Jenkinsfile", text: newJenkinsFile
         sh 'git add .'
         sh "git commit -m 'Add options directive'"
     }
@@ -47,6 +51,6 @@ def createNewReleaseBranch() {
 }
 
 def call() {
-    println "Calling new method"
-    createNewReleaseBranch()
+    //createNewReleaseBranch()
+    print getNumLogsForRotation()
 }
