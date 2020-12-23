@@ -1,0 +1,46 @@
+@Library('jenkins_shared_lib')
+import org.company.jsl.BuildSettings
+import org.company.jsl.BuildTool
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build setup') {
+            steps {
+                buildSettings = new BuildSettings(
+                    branchName : BRANCH_NAME,
+                )
+                buildTool = new BuildTool(
+                    packager : "Maven",
+                    profiles : ["profile1","profile2"],
+                )
+            }
+        }
+        stage('Build') {
+            steps {
+                buildTool.build(tests = "skip") // skip or ignore or execute by default
+            }
+        }
+        stage('Sonarqube scan') {
+            steps {
+                sonarqubeScan()
+            }
+        }
+        stage('Veracode scan') { // can be combined or removed
+            steps {
+                veracodeScan()
+            }
+        }
+        stage('Upload artifacts') {
+            steps {
+                publishStage()
+            }
+        }
+        stage('Release') {
+            steps {
+                createRelease(buildSettings)
+            }
+        }
+    }
+}
