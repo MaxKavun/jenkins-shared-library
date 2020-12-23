@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-import com.max.jsl.*
+import org.company.jsl.*
 
 def call(buildSettings) {
     /*

@@ -1,4 +1,4 @@
-package com.max.jsl;
+package org.company.jsl;
 
 class BuildSettings {
     private String branchName = null

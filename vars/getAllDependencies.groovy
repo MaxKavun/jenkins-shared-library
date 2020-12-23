@@ -4,7 +4,7 @@
 //import java.security.NoSuchAlgorithmException
 //import hudson.FilePath - potentially better realisation without reading file & embedded method which return md5 hash sum
 import hudson.model.*
-import com.max.jsl.*
+import org.company.jsl.*
 
 def call(buildSettings, workspace) {
     def COMMA_OR_COLON = "[,:]"
