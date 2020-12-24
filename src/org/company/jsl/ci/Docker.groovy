@@ -19,13 +19,12 @@ class Docker implements Serializable {
             this.dockerRegistry = this.config["dockerRegistry"] ?: this.dockerRegistry
             this.imageName = this.config["imageName"]
             this.imageVersion = this.config["imageVersion"]
-            if (this.imageVersion == null) {
+            if (this.imageVersion == null || this.imageName == null) {
                 throw new Exception('Required arguments are missed')
             }
         } catch(Exception ex) {
             job.println(ex.getMessage())
-            job.println(DefaultSettings.DOCKER_PARAMS_DESC)
-            job.error("Fail job")
+            job.error(DefaultSettings.DOCKER_PARAMS_DESC)
         }
     }
 
