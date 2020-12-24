@@ -22,11 +22,12 @@ class Docker implements Serializable {
             job.print(this.imageVersion)
             job.print(this.imageVersion.getObject())
             job.print(this.imageName)
-            if (this.imageName == null || this.imageVersion == null) {
+            if (this.imageVersion == null) {
                 throw new RuntimeException('Required arguments are missed')
             }
         } catch(RuntimeException ex) {
-            print("Some exception...")
+            println(ex.getMessage())
+            println(DefaultSettings.DOCKER_PARAMS_DESC)
         }
     }
 
