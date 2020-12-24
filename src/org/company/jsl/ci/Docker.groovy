@@ -19,7 +19,7 @@ class Docker implements Serializable {
             this.dockerRegistry = this.config["dockerRegistry"] ?: this.dockerRegistry
             this.imageName = this.config["imageName"]
             this.imageVersion = this.config["imageVersion"]
-            error "FUCK"
+            job.error "FUCK"
             if (this.imageVersion == null) {
                 error "SHIT"
                 throw new Exception('Required arguments are missed')
