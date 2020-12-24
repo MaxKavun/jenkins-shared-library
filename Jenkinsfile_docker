@@ -12,7 +12,10 @@ pipeline {
                     buildSettings = new BuildSettings(
                         branchName : "develop",
                     )
-                    buildTool = new BuildTool(this).returnBuildTool()
+                    buildTool = new BuildTool(
+                        builder : "Docker", 
+                        job      : this,
+                    ).returnBuildTool()
                 }
             }
         }

@@ -11,6 +11,7 @@ class BuildTool implements Serializable {
     def job
 
     BuildTool(builder, job) {
+        
         this.builder = builder
         this.config = "profiles"
         this.job = job
