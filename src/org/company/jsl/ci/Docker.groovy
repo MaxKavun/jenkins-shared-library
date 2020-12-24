@@ -1,6 +1,7 @@
 package org.company.jsl.ci
 
 class Docker {
+    def config
     Docker(config) {
         this.config = config
     }

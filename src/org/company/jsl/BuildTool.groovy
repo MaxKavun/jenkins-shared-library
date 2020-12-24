@@ -7,6 +7,7 @@ class BuildTool {
 
     def builder
     def config
+    def tool
     BuildTool() {
         this.builder = "Docker"
         this.config = "profiles"
