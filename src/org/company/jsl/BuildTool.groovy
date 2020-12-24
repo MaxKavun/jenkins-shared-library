@@ -8,10 +8,10 @@ class BuildTool {
     def builder
     def config
     BuildTool() {
-        this.builder = "Maven"
+        this.builder = "Docker"
         this.config = "profiles"
 
-        switch (buildTool.toLowerCase()) {
+        switch (this.builder.toLowerCase()) {
             case 'maven':
                 def maven = new Maven(this.config)
                 this.tool = maven
