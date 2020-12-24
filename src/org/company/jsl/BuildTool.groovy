@@ -3,7 +3,7 @@ package org.company.jsl
 import org.company.jsl.ci.Maven
 import org.company.jsl.ci.Docker
 
-class BuildTool implements Seializable {
+class BuildTool implements Serializable {
 
     def builder
     def config

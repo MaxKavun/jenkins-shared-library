@@ -1,6 +1,6 @@
 package org.company.jsl.ci
 
-class Docker implements Seializable {
+class Docker implements Serializable {
     
     def config
     def dockerImageId
