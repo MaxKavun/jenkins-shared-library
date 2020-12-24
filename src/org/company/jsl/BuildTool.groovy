@@ -10,11 +10,11 @@ class BuildTool implements Serializable {
     def tool
     def job
 
-    BuildTool(builder, job) {
-        
-        this.builder = builder
-        this.config = "profiles"
-        this.job = job
+    BuildTool(Map parameters) {
+
+        this.builder = parameters['builder']
+        this.job = parameters['job']
+        this.config = parameters
 
         switch (this.builder.toLowerCase()) {
             case 'maven':
