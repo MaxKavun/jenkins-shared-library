@@ -13,8 +13,9 @@ pipeline {
                         branchName : "develop",
                     )
                     buildTool = new BuildTool(
-                        builder : "Docker", 
-                        job      : this,
+                        builder        : "Docker", 
+                        job            : this,
+                        dockerRegistry : "172.17.0.1:5050",
                     ).returnBuildTool()
                 }
             }
