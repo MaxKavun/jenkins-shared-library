@@ -11,10 +11,16 @@ class BuildTool {
         switch (buildTool.toLowerCase()) {
             case 'maven':
                 def maven = new Maven(this.config)
-                return maven
+                this.tool = maven
+                break
             case 'docker':
                 def docker = new Docker(this.config)
-                return docker
+                this.tool = docker
+                break
         }
+    }
+
+    def returnBuildTool() {
+        return this.tool
     }
 }
