@@ -4,6 +4,9 @@ import org.company.jsl.ci.Maven
 import org.company.jsl.ci.Docker
 
 class BuildTool {
+
+    def builder
+    def config
     BuildTool() {
         this.builder = "Maven"
         this.config = "profiles"
