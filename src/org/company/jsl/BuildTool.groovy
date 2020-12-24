@@ -9,8 +9,9 @@ class BuildTool implements Serializable {
     def config
     def tool
     def job
-    BuildTool(job) {
-        this.builder = "Docker"
+
+    BuildTool(builder, job) {
+        this.builder = builder
         this.config = "profiles"
         this.job = job
 

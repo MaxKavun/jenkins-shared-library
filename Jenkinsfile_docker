@@ -8,17 +8,19 @@ pipeline {
     stages {
         stage('Build setup') {
             steps {
-                buildSettings = new BuildSettings(
-                    branchName : BRANCH_NAME,
-                )
-                buildTool = new BuildTool(
-                    builder : "Docker",
-                )
+                script {
+                    buildSettings = new BuildSettings(
+                        branchName : "develop",
+                    )
+                    buildTool = new BuildTool(this).returnBuildTool()
+                }
             }
         }
         stage('Build') {
             steps {
-                buildTool.build()
+                script {
+                    buildTool.build()
+                }
             }
         }
         stage('Sonarqube scan') {
@@ -33,7 +35,9 @@ pipeline {
         }
         stage('Upload artifacts') {
             steps {
-                buildTool.publish()
+                script {
+                    buildTool.publish()
+                }
             }
         }
         stage('Release') {
