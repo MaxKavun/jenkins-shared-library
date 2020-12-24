@@ -1,19 +1,24 @@
 package org.company.jsl.ci
 
-class Docker {
+class Docker implements Seializable {
+    
     def config
-    Docker(config) {
+    def dockerImageId
+    def job
+
+    Docker(job, config) {
+        this.job = job
         this.config = config
     }
 
     def build() {
-        docker.withRegistry("https://nexus.com:5000", "hub_rw") {
+        job.docker.withRegistry("https://nexus.com:5000", "hub_rw") {
             this.dockerImageId = docker.build("nexus.com:5000/artifact:1.0").id
         }
     }
 
     def publish() {
-        docker.withRegistry("https://nexus.com:5000", "hub_rw") {
+        job.docker.withRegistry("https://nexus.com:5000", "hub_rw") {
             def image = docker.image(this.dockerImageId)
             image.push()
             image.push("latest")
