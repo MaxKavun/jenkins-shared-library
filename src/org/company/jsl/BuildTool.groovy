@@ -4,7 +4,7 @@ import org.company.jsl.ci.Maven
 import org.company.jsl.ci.Docker
 
 class BuildTool {
-    BuildTool(String builder, Map config) {
+    BuildTool(String builder, Map config = [:]) {
         this.builder = builder
         this.config = config
 
