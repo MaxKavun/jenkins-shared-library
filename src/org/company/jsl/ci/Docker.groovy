@@ -12,13 +12,13 @@ class Docker implements Serializable {
     }
 
     def build() {
-        job.docker.withRegistry("https://nexus.com:5000", "hub_rw") {
-            this.dockerImageId = docker.build("nexus.com:5000/artifact:1.0").id
+        job.docker.withRegistry("http://172.17.0.1:8081", "nexus") {
+            this.dockerImageId = docker.build("172.17.0.1:8081/myimage:1.0").id
         }
     }
 
     def publish() {
-        job.docker.withRegistry("https://nexus.com:5000", "hub_rw") {
+        job.docker.withRegistry("http://172.17.0.1:8081", "nexus") {
             def image = docker.image(this.dockerImageId)
             image.push()
             image.push("latest")
