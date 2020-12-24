@@ -13,8 +13,8 @@ class Docker implements Serializable {
     def imageVersion
 
     Docker(job, config) {
-        throw new Exception('Required arguments are missed')
         try {
+            throw new Exception('Required arguments are missed')
             this.job = job
             this.config = config
             this.dockerRegistry = this.config["dockerRegistry"] ?: this.dockerRegistry
