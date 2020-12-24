@@ -8,21 +8,30 @@ class Docker implements Serializable {
     def dockerImageId
     def job
     def dockerRegistry = DefaultSettings.DOCKER_REGISTRY
+    def dockerCredentials = DefaultSettings.DOCKER_CREDENTIALS
+    def imageName
+    def imageVersion
 
     Docker(job, config) {
-        this.job = job
-        this.config = config
-        this.dockerRegistry = this.config["dockerRegistry"] ?: this.dockerRegistry
+        try {
+            this.job = job
+            this.config = config
+            this.dockerRegistry = this.config["dockerRegistry"] ?: this.dockerRegistry
+            this.imageName = this.config["imageName"]
+            this.imageVersion = this.config["imageVersion"]
+        } catch(Exception ex) {
+            print("Some exception...")
+        }
     }
 
     def build() {
-        job.docker.withRegistry("http://${this.dockerRegistry}", "nexus") {
-            this.dockerImageId = job.docker.build("${this.dockerRegistry}/myimage:1.0").id
+        job.docker.withRegistry("http://${this.dockerRegistry}", this.dockerCredentials) {
+            this.dockerImageId = job.docker.build("${this.dockerRegistry}/${this.imageName}:${this.imageVersion}").id
         }
     }
 
     def publish() {
-        job.docker.withRegistry("http://${this.dockerRegistry}", "nexus") {
+        job.docker.withRegistry("http://${this.dockerRegistry}", this.dockerCredentials) {
             def image = job.docker.image(this.dockerImageId)
             image.push()
             image.push("latest")

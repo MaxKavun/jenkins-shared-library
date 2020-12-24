@@ -8,38 +8,47 @@ pipeline {
     stages {
         stage('Build setup') {
             steps {
-                buildSettings = new BuildSettings(
-                    branchName : BRANCH_NAME,
-                )
-                buildTool = new BuildTool(
-                    packager : "Maven",
-                    profiles : ["profile1","profile2"],
-                )
+                script {
+                    buildSettings = new BuildSettings(
+                        branchName : "develop",
+                    )
+                    buildTool = new BuildTool(
+                        builder        : "Docker", 
+                        job            : this,
+                        dockerRegistry : "172.17.0.1:5050",
+                        imageName      : "myimage",
+                        imageVersion   : "1.0",
+                    ).returnBuildTool()
+                }
             }
         }
         stage('Build') {
             steps {
-                buildTool.build(tests = "skip") // skip or ignore or execute by default
+                script {
+                    buildTool.build()
+                }
             }
         }
         stage('Sonarqube scan') {
             steps {
-                sonarqubeScan()
+                echo "sonarqubeScan()"
             }
         }
-        stage('Veracode scan') { // can be combined or removed
+        stage('Aquasec scan') { // can be combined or removed
             steps {
-                veracodeScan()
+                echo "aquasecScan()"
             }
         }
         stage('Upload artifacts') {
             steps {
-                publishStage()
+                script {
+                    buildTool.publish()
+                }
             }
         }
         stage('Release') {
             steps {
-                createRelease(buildSettings)
+                echo "createRelease(buildSettings)"
             }
         }
     }

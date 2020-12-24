@@ -16,6 +16,8 @@ pipeline {
                         builder        : "Docker", 
                         job            : this,
                         dockerRegistry : "172.17.0.1:5050",
+                        imageName      : "myimage",
+                        imageVersion   : "1.0",
                     ).returnBuildTool()
                 }
             }
