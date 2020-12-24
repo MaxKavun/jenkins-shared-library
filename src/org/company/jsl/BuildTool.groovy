@@ -4,9 +4,9 @@ import org.company.jsl.ci.Maven
 import org.company.jsl.ci.Docker
 
 class BuildTool {
-    BuildTool(Map config = [:], String builder) {
-        this.builder = builder
-        this.config = config
+    BuildTool() {
+        this.builder = "Maven"
+        this.config = "profiles"
 
         switch (buildTool.toLowerCase()) {
             case 'maven':
