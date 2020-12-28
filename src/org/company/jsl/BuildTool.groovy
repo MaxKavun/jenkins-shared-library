@@ -16,9 +16,6 @@ class BuildTool implements Serializable {
         this.job = parameters['job']
         this.config = parameters
 
-        this.job.println(currentBuild)
-        this.job.println(this.job)
-
         switch (this.builder.toLowerCase()) {
             case 'maven':
                 def maven = new Maven(this.job, this.config)
