@@ -2,7 +2,6 @@ package org.company.jsl
 
 import org.company.jsl.ci.Maven
 import org.company.jsl.ci.Docker
-import hudson.model.*
 
 class BuildTool implements Serializable {
 
@@ -17,9 +16,7 @@ class BuildTool implements Serializable {
         this.job = parameters['job']
         this.config = parameters
 
-        def myJob = Thread.currentThread().executable
-
-        this.job.println(myJob)
+        this.job.println(currentBuild)
         this.job.println(this.job)
 
         switch (this.builder.toLowerCase()) {
