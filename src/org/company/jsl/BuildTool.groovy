@@ -23,7 +23,7 @@ class BuildTool implements Serializable {
                 break
             case 'docker':
                 def docker = new Docker(this.job, this.config)
-                this = docker
+                this.tool = docker
                 break
         }
     }
