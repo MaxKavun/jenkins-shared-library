@@ -13,7 +13,7 @@ pipeline {
                         branchName : "develop",
                     )
                     buildTool = new BuildTool(
-                        builder        : "Docker", 
+                        builder        : "Docker",
                         job            : this,
                         dockerRegistry : "172.17.0.1:5050",
                         imageName      : "myimage",

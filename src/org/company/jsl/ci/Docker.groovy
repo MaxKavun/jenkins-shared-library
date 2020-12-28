@@ -23,7 +23,7 @@ class Docker implements Serializable {
                 throw new Exception('Required arguments are missed')
             }
         } catch(Exception ex) {
-            job.println(ex.getMessage())
+            println(ex.getMessage())
             job.error(DefaultSettings.DOCKER_PARAMS_DESC)
         }
     }
