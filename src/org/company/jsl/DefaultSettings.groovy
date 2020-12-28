@@ -5,7 +5,7 @@ class DefaultSettings {
     public static final String DOCKER_REGISTRY = '172.17.0.1:5050'
     public static final String DOCKER_CREDENTIALS = 'nexus'
     public static final String DOCKER_PARAMS_DESC = """
-        
+    <h3>You haven't provided necessary arguments</h3>
     buildTool = new BuildTool(
         builder        : "Docker",          - [REQUIRED]
         job            : this,              - [REQUIRED]
