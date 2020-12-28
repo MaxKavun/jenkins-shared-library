@@ -13,11 +13,10 @@ pipeline {
                         branchName : "develop",
                     )
                     buildTool = new BuildTool(
-                        builder        : "Docker", 
+                        builder        : "Maven", 
                         job            : this,
-                        dockerRegistry : "172.17.0.1:5050",
-                        imageName      : "myimage",
-                        imageVersion   : "1.0",
+                        tests          : "skip",
+                        profiles       : "['profile1','profile2']",
                     ).returnBuildTool()
                 }
             }
