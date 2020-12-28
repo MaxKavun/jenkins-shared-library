@@ -2,6 +2,11 @@ package org.company.jsl.ci
 
 import org.company.jsl.DefaultSettings
 
+/**
+ * A Docker class
+ * Consist of methods which need to be executed as part of Jenkinsfile
+ * Can be expanded
+ */
 class Docker implements Serializable {
     
     def config
@@ -12,6 +17,11 @@ class Docker implements Serializable {
     def imageName
     def imageVersion
 
+    /**
+     * Init method
+     * @param job the link to the Jenkins job
+     * @param config arguments which were provided in Jenkinsfile
+     */
     Docker(job, config) {
         try {
             this.job = job
@@ -38,7 +48,6 @@ class Docker implements Serializable {
         job.docker.withRegistry("http://${this.dockerRegistry}", this.dockerCredentials) {
             def image = job.docker.image(this.dockerImageId)
             image.push()
-            image.push("latest")
         }
     }
 }
