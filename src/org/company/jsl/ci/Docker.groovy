@@ -52,6 +52,6 @@ class Docker implements Serializable {
     }
 
     def removeImages() {
-        job.sh "docker images | grep ${this.imageName} | awk \\\'{system(\"docker rmi -f \" \$1 \":\" \$2)}\\\'"
+        job.sh "docker images | grep ${this.imageName} | awk '{system(\"docker rmi -f \" \$1 \":\" \$2)}'"
     }
 }
