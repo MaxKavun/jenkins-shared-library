@@ -50,4 +50,8 @@ class Docker implements Serializable {
             image.push()
         }
     }
+
+    def removeImages() {
+        job.sh(script: "docker images | grep ${this.imageName} | awk '{system{\"docker rmi -f \" \$1 \":\" \$2)}'")
+    }
 }
