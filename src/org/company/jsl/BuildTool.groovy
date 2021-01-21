@@ -17,7 +17,7 @@ class BuildTool implements Serializable {
     /** the variable which reference to the object of class tool */
     def tool
     /** the reference to the jenkins job */
-    def job
+    defd job
 
     /**
      * Init method to instantiate necessary build tool
