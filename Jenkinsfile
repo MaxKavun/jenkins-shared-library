@@ -3,7 +3,6 @@ pipeline {
     
     tools {
         maven 'mvn'
-        maven 'SonarScanner 4.0'
     }
 
     stages {
@@ -15,6 +14,7 @@ pipeline {
         stage('Sonarqube scan') {
             steps {
                 withSonarQubeEnv('nexus') {
+                    def scannerHome = tool 'SonarScanner 4.6';
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
