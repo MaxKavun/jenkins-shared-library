@@ -13,9 +13,11 @@ pipeline {
         }
         stage('Sonarqube scan') {
             steps {
-                withSonarQubeEnv('nexus') {
-                    def scannerHome = tool 'SonarScanner 4.6';
-                    sh "${scannerHome}/bin/sonar-scanner"
+                script {
+                    withSonarQubeEnv('nexus') {
+                        def scannerHome = tool 'SonarScanner 4.6';
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
                 }
             }
         }
