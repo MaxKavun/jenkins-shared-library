@@ -7,6 +7,7 @@ def call(buildSettings) {
       * Create release code with creating new branch and pushing to the SCM
       * Just for testing
     */
+    println(Jenkins)
     if (!buildSettings.getVersionedSemantically()) {
         sh "git branch release/${BUILD_NUMBER}"
         sh "git checkout release/${BUILD_NUMBER}"
