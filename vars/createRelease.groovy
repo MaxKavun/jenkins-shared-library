@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 import org.company.jsl.*
+import jenkins.model.Jenkins
 
 def call(buildSettings) {
     /*
