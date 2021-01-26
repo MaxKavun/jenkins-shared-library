@@ -2,6 +2,7 @@ package org.company.jsl
 
 import org.company.jsl.ci.Maven
 import org.company.jsl.ci.Docker
+import com.cloudbees.groovy.cps.NonCPS
 
 /**
  * A BuildTool class 
