@@ -27,11 +27,6 @@
             <artifactId>groovy-all</artifactId>
             <version>${groovy.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>${groovy.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -41,13 +36,14 @@
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.12.1</version>
+                <version>1.5</version>
                 <executions>
                   <execution>
                     <goals>
                       <goal>addSources</goal>
                       <goal>addTestSources</goal>
                       <goal>compile</goal>
+                      <goal>testCompile</goal>
                     </goals>
                   </execution>
                 </executions>
@@ -77,29 +73,6 @@
                 <groovydocOutputDirectory>target/site/apidocs</groovydocOutputDirectory>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-              </plugin>
-              <plugin>
-                <!-- if including source jars, use the no-fork goals
-                     otherwise both the Groovy sources and Java stub sources
-                     will get included in your jar -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <!-- source plugin \> = 2.1 is required to use the no-fork goals -->
-                <version>3.2.1</version>
-                <executions>
-                  <execution>
-                    <id>attach-sources</id>
-                    <goals>
-                      <goal>jar-no-fork</goal>
-                      <goal>test-jar-no-fork</goal>
-                    </goals>
-                  </execution>
-                </executions>
-          </plugin>
         </plugins>
     </build>
 </project>
