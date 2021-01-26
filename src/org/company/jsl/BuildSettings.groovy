@@ -1,5 +1,3 @@
-package org.company.jsl;
-
 import jenkins.model.Jenkins
 
 class BuildSettings {
