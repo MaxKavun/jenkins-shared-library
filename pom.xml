@@ -27,11 +27,6 @@
             <artifactId>groovy-all</artifactId>
             <version>${groovy.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>${groovy.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -44,26 +39,44 @@
 
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>addSources</goal>
+                      <goal>addTestSources</goal>
+                      <goal>compile</goal>
+                      <goal>testCompile</goal>
+                    </goals>
+                  </execution>
+                </executions>
                 <configuration>
-                    <compilerId>groovy-eclipse-compiler</compilerId>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                <sources>
+                  <source>
+                    <directory>${project.basedir}/vars</directory>
+                    <includes>
+                      <include>**/*.groovy</include>
+                    </includes>
+                  </source>
+                  <source>
+                    <directory>${project.basedir}/src</directory>
+                    <includes>
+                      <include>**/*.groovy</include>
+                    </includes>
+                  </source>
+                </sources>
+                <testSources>
+                  <testSource>
+                    <directory>${project.basedir}/test</directory>
+                    <includes>
+                      <include>**/*.groovy</include>
+                    </includes>
+                  </testSource>
+                </testSources>
+                <groovydocOutputDirectory>target/site/apidocs</groovydocOutputDirectory>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-eclipse-compiler</artifactId>
-                        <version>3.5.0-01</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-eclipse-batch</artifactId>
-                        <version>2.5.8-02</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
