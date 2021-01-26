@@ -8,6 +8,7 @@ import org.company.jsl.ci.Docker
  * Another abstraction for listing all of ours 'Build' tools
  * Currently it supports docker and maven
  */
+@NonCPS
 class BuildTool implements Serializable {
 
     /** the name of build tool */
