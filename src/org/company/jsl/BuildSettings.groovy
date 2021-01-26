@@ -1,7 +1,7 @@
 import jenkins.model.Jenkins
 
 class BuildSettings {
-    private Stringa branchName = null
+    private String branchName = null
     private Boolean versionedSemantically = false
     private List<String> upstreamDependencies = []
 
