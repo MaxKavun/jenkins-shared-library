@@ -9,7 +9,8 @@ import com.cloudbees.groovy.cps.NonCPS
  * Another abstraction for listing all of ours 'Build' tools
  * Currently it supports docker and maven
  */
-@NonCPS
+
+
 class BuildTool implements Serializable {
 
     /** the name of build tool */
@@ -48,6 +49,8 @@ class BuildTool implements Serializable {
      * Method returns build tool object
      * @return a object of tool class
      */
+     
+    @NonCPS
     def returnBuildTool() {
         return this.tool
     }

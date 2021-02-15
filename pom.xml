@@ -3,6 +3,12 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>2.21</version>
+    </parent>
+
     <groupId>com.mycompany.jenkins</groupId>
     <artifactId>jenkins-shared-lib</artifactId>
     <name>jenkins-shared-lib</name>
@@ -12,30 +18,19 @@
         <jdk.version>8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <groovy.cps.version>1.30</groovy.cps.version>
-        <groovy.version>2.4.12</groovy.version>
+        <groovy.all.version>2.4.12</groovy.all.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.cloudbees</groupId>
-            <artifactId>groovy-cps</artifactId>
-            <version>${groovy.cps.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>${groovy.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.main</groupId>
-            <artifactId>jenkins-core</artifactId>
-            <version>2.259</version>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.all.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-cps</artifactId>
-            <version>2.87</version>
+            <artifactId>workflow-cps-global-lib</artifactId>
+            <version>2.6</version>
         </dependency>
     </dependencies>
 
